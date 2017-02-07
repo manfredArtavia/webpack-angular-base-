@@ -1,19 +1,19 @@
 'use strict';
 
-// Modules
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
-var ENV = process.env.npm_lifecycle_event;
-var isTest = ENV === 'test' || ENV === 'test-watch';
-var isProd = ENV === 'build';
+const ENV = process.env.npm_lifecycle_event;
+const isTest = ENV === 'test' || ENV === 'test-watch';
+const isProd = ENV === 'build';
+
+const port = 9000;
 
 module.exports = function makeWebpackConfig() {
-  var config = {};
+  const config = {};
 
   config.entry = isTest ? void 0 : {
     app: './client/js/app.js'
@@ -22,15 +22,15 @@ module.exports = function makeWebpackConfig() {
   config.output = isTest ? {} : {
     path: __dirname + '/dist',
     publicPath: isProd ? '/' : 'http://localhost:9000/',
-    filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
-    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+    filename: isProd ? 'bundle.min.js' : 'bundle.js',
+    chunkFilename: isProd ? 'bundle.min.js' : 'bundle.js'
   };
 
   if (isTest) {
     config.devtool = 'inline-source-map';
   }
   else if (isProd) {
-    config.devtool = 'source-map';
+    config.devtool = '';
   }
   else {
     config.devtool = 'eval-source-map';
@@ -44,22 +44,13 @@ module.exports = function makeWebpackConfig() {
         exclude: /node_modules/
       },
       {
-        test: /\.css$/,
-        loader: isTest ? 'null-loader' : ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
-            { loader: 'css-loader', query: { sourceMap: true } },
-            { loader: 'postcss-loader' },
-          ],
-        })
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+        test: /\.(png|jpg|jpeg)$/,
         loader: 'file-loader'
       },
       {
         test: /\.css$|\.scss$|\.sass$/,
-        loader: 'style-loader!css-loader!sass-loader' },
+        loader: 'style-loader!css-loader!sass-loader'
+      },
       {
         test: /\.html$/,
         loader: 'raw-loader'
@@ -84,12 +75,7 @@ module.exports = function makeWebpackConfig() {
 
   config.plugins = [
     new webpack.LoaderOptionsPlugin({
-      test: /\.scss$/i,
-      options: {
-        postcss: {
-          plugins: [autoprefixer]
-        }
-      }
+      test: /\.scss$/i
     })
   ];
 
@@ -102,17 +88,15 @@ module.exports = function makeWebpackConfig() {
       new ExtractTextPlugin({filename: 'css/[name].css', disable: !isProd, allChunks: true})
     );
     config.plugins.push(
-      new OpenBrowserPlugin({ url: 'http://localhost:9000' })
+      new OpenBrowserPlugin({ url: `http://localhost:${port}` })
     );
   }
 
   if (isProd) {
     config.plugins.push(
-      new webpack.NoErrorsPlugin(),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
       new CopyWebpackPlugin([{
-        from: __dirname + '/client/img'
+        from: __dirname + '/client/img',
+        to: './img'
       }])
     )
   }
@@ -121,7 +105,7 @@ module.exports = function makeWebpackConfig() {
     contentBase: './client',
     stats: 'minimal',
     inline: true,
-    port: 9000,
+    port,
     contentBase: __dirname,
   };
 

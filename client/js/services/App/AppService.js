@@ -1,4 +1,4 @@
-export default class AppService {
+class AppService {
   constructor() {
     this.names = ['AngularJS', 'ES6'];
   }
@@ -7,3 +7,5 @@ export default class AppService {
     return this.names;
   }
 }
+
+export default AppService;
