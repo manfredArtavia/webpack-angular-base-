@@ -1,7 +1,7 @@
 {
-  "name": "angular-webpack-workflow",
-  "version": "1.1.0",
-  "description": "A workflow for Angular made with Webpack",
+  "name": "webpack-angular-base",
+  "version": "0.0.1",
+  "description": "A workflow for Angular-ES6 made with Webpack",
   "scripts": {
     "build": "rimraf dist && webpack --bail --progress --profile",
     "server": "webpack-dev-server --history-api-fallback --inline --progress",
@@ -11,14 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Foxandxss/angular-webpack-workflow.git"
+    "url": "https://github.com/manfredArtavia/webpack-angular-base-.git"
   },
-  "author": "Jesus Rodriguez",
+  "author": "Manfred Artavia",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Foxandxss/angular-webpack-workflow/issues"
-  },
-  "homepage": "https://github.com/Foxandxss/angular-webpack-workflow",
   "dependencies": {
     "angular": "^1.5.0"
   },
@@ -40,11 +36,11 @@
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-spec-reporter": "0.0.26",
     "karma-webpack": "2.0.1",
     "node-libs-browser": "2.0.0",
     "node-sass": "^4.5.0",
     "null-loader": "^0.1.1",
+    "open-browser-webpack-plugin": "0.0.3",
     "phantomjs-prebuilt": "^2.1.4",
     "postcss-loader": "1.2.2",
     "raw-loader": "^0.5.1",
