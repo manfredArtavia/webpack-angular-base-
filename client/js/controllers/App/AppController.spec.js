@@ -17,8 +17,8 @@ describe('AppController', () => {
     it('Should contain the welcome message', () => {
       expect(ctrl.welcome).toEqual('Hello from Angular!');
     });
-    it('Should contain an array with 2 elements', () => {
-      expect(ctrl.names.length).toEqual(2);
+    it('Should contain an array with 4 elements', () => {
+      expect(ctrl.names.length).toEqual(4);
     });
   });
 });

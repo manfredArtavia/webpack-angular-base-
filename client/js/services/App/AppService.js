@@ -1,6 +1,6 @@
 class AppService {
   constructor() {
-    this.names = ['AngularJS', 'ES6'];
+    this.names = ['AngularJS', 'ES6', 'React', 'Redux'];
   }
 
   getNames() {
