@@ -1,8 +1,14 @@
 import logo from '../../../img/logo.png';
 
+/**
+AppDirectiveCtrl
+*/
 class AppDirectiveCtrl {
+  /**
+  AppDirectiveCtrl
+  @param {Object} AppService Service
+  */
   constructor(AppService) {
-    console.log('HI from app directive');
     const vm = this;
     vm.welcome = 'Hello from Angular!';
     vm.logo = logo;

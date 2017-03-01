@@ -7,5 +7,5 @@ import '../assets/app.scss';
 const MODULE_NAME = 'app';
 
 angular.module(MODULE_NAME, [controllers, services, directives]);
-// angular.bootstrap(document, [MODULE_NAME]);
+angular.bootstrap(document, [MODULE_NAME]);
 export default MODULE_NAME;
